@@ -1,0 +1,83 @@
+.income
+  @include bg
+  background-image: url("../img/bgs/payment-bg.jpg")
+  min-height: 929px
+  padding: 65px 0 70px 0
+  &__title
+    font-family: Merriweather
+    font-size: 44px
+    font-weight: 300
+    line-height: 0.77
+    text-align: center
+    color: white
+    span
+      color: #ce211f
+  &__subtitle
+    position: relative
+    z-index: 1
+    width: 84%
+    margin: 33px auto 0 auto
+  &__subtitle-text
+    font-size: 26px
+    font-weight: 500
+    line-height: 1.31
+    text-align: center
+    color: white
+    margin-bottom: 0
+    padding: 5px 19px
+  &__subtitle-bg
+    position: absolute
+    border-radius: 5px
+    background-color: #585454
+    width: 100%
+    height: 100%
+    top: 0
+    left: 0
+    z-index: -1
+    transform: skewX(-13deg)
+  &__table-box
+    position: relative
+  &__table-arrow
+    position: absolute
+    right: -20px
+    right: 9px
+    bottom: -42%
+  &__table
+    margin: 32px auto 0 auto
+    width: 85%
+    border-radius: 5px
+  &__table-row
+    display: flex
+    &:first-child
+      & > .income__table-cell
+        &:first-child
+          border-top-left-radius: 5px
+        &:last-child
+          border-top-right-radius: 5px
+    &:last-child
+      & > .income__table-cell
+        border-bottom: 2px solid white
+        border-top: none
+        background-color: #c93a37
+        &:first-child
+          border-bottom-left-radius: 5px
+        &:last-child
+          border-bottom-right-radius: 5px
+  &__table-cell
+    width: 50%
+    height: 70px
+    display: flex
+    justify-content: center
+    align-items: center
+    font-size: 24px
+    line-height: 2
+    text-align: left
+    color: white
+    border-top: 2px solid white
+    border-left: 2px solid white
+    &:first-child
+      padding-left: 37px
+      justify-content: start
+    &:last-child
+      font-weight: 500
+      border-right: 2px solid white
