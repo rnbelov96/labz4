@@ -2,8 +2,8 @@ import isEmail from 'validator/lib/isEmail';
 import isMobilePhone from 'validator/lib/isMobilePhone';
 
 const NESSESARY_FIELD_CAPTION = 'Обязательное поле';
-const WRONG_PHONE_CAPTION = 'Неверно набранный номер';
-const WRONG_EMAIL_CAPTION = 'Неверно набранный email';
+const WRONG_PHONE_CAPTION = 'Неверный номер';
+const WRONG_EMAIL_CAPTION = 'Неверныйemail';
 
 const formsList = document.querySelectorAll('form');
 
@@ -12,6 +12,7 @@ formsList.forEach(form => {
   const phoneErrorLabelEl = form.querySelector('#phone-error') as HTMLDivElement;
   const emailErrorLabelEl = form.querySelector('#email-error') as HTMLDivElement;
   const cityErrorLabelEl = form.querySelector('#city-error') as HTMLDivElement | null;
+  // исправить получение по name
   const nameInputEl = form.querySelector('[name="name"]') as HTMLInputElement | null;
   const phoneInputEl = form.querySelector('[name="phone"]') as HTMLInputElement;
   const emailInputEl = form.querySelector('[name="email"]') as HTMLInputElement;
