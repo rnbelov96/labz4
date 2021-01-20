@@ -13,10 +13,22 @@
     margin-bottom: 0
     span
       color: #ce211f
+  &__input-box
+    position: relative
+  &__error-text
+    position: absolute
+    color: #ce211f
+    bottom: 0
+    transform: translate3d(0, 115%, 0)
+  &__input-img
+    position: absolute
+    left: 20px
+    top: 50%
+    transform: translate3d(0, -50%, 0)
   &__input
     width: 227px
     height: 60px
-    padding: 19px 21px 23px 54px
+    padding: 20px 21px 20px 54px
     box-shadow: inset 0px 1px 13px 0 rgba(0, 0, 0, 0.1)
     border: solid 2px white
     background-color: white
@@ -31,6 +43,7 @@
   &__inputs
     display: flex
     margin-top: 17px
+    height: 60px
     box-shadow: 0px 0px 19px 1px rgba(0, 0, 0, 0.1)
     margin-right: 90px
   &__btn-box
@@ -72,7 +85,7 @@
     width: 570px
     margin-bottom: 0
   &__agree
-    margin-top: 23px
+    margin-top: 30px
     display: flex
     justify-content: space-between
     padding-right: 90px
