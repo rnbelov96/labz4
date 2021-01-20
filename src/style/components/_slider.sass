@@ -1,0 +1,68 @@
+.slider
+  padding: 66px 0
+  @include bg
+  background-image: url("../img/bgs/gallery-bg.jpg")
+  min-height: 790px
+  &__title
+    font-family: Merriweather
+    font-size: 44px
+    font-weight: 300
+    line-height: 0.77
+    text-align: center
+    color: white
+  &__content
+    width: 65%
+    margin: 36px 0 0 auto
+  &__main-img-item
+    width: 100%
+    img
+      width: 100%
+  &__carousel
+    width: 100%
+    position: relative
+  &__wrapper, &__main-img-wrapper
+    width: 100%
+    overflow: hidden
+  &__main-img-box
+    display: flex
+    justify-content: space-between
+    transition: transform .2s
+  &__main-img-item
+    width: 100%
+    flex-shrink: 0
+  &__img-box
+    display: flex
+    justify-content: space-between
+    margin-top: 30px
+    transform: translate3d(-204%, 0, 0)
+    user-select: none
+    touch-action: pan-y
+  &__img-item
+    width: 49%
+    margin-right: 2%
+    flex-shrink: 0
+    cursor: pointer
+    &:last-child
+      margin-right: 0
+    img
+      pointer-events: none
+      max-width: 100%
+      max-height: 100%
+  &__btn-prev, &__btn-next
+    width: 30px
+    height: 40px
+    background-color: #e2574c
+    border: none
+    position: absolute
+    img
+      width: 75%
+  &__btn-prev
+    border-top-right-radius: 5px
+    border-bottom-right-radius: 5px
+    left: 0
+    top: 50%
+  &__btn-next
+    border-top-left-radius: 5px
+    border-bottom-left-radius: 5px
+    right: 0
+    top: 50%

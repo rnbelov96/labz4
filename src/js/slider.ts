@@ -1,120 +1,192 @@
-import slideImg1 from '../img/slider/1.jpg';
-import slideImg2 from '../img/slider/2.jpg';
-import slideImg3 from '../img/slider/3.jpg';
-import slideImg4 from '../img/slider/4.jpg';
+import calcPosX from './utils';
 
-const imgEl1 = new Image();
-imgEl1.src = slideImg1;
+export {};
 
-const imgEl2 = new Image();
-imgEl2.src = slideImg2;
+const imagesLength = 6;
+let currentImage = 1;
+const mode = 2;
 
-const imgEl3 = new Image();
-imgEl3.src = slideImg3;
+const initTranslateXPos = -200;
+let translateXPos = -200;
+const translateStep = 100 / mode;
+let offset: number;
+let posInit: number;
+let isDragging = false;
 
-const imgEl4 = new Image();
-imgEl4.src = slideImg4;
+const imagesBoxEl = document.querySelector('.slider__img-box') as HTMLDivElement;
+const mainImagesBoxEl = document.querySelector('.slider__main-img-box') as HTMLDivElement;
+const wrapperEl = document.querySelector('.slider__wrapper') as HTMLDivElement;
 
-const imageElList = [imgEl1, imgEl2, imgEl3, imgEl4];
+let wrapperCoords = wrapperEl.getBoundingClientRect();
+let wrapperLeftCoords = wrapperCoords.left;
+let wrapperWidth = wrapperCoords.width;
 
-let centralImgIndex = 1;
+const prevBtnEl = document.querySelector('.slider__btn-prev') as HTMLButtonElement;
+const nextBtnEl = document.querySelector('.slider__btn-next') as HTMLButtonElement;
 
-imageElList[0].className = 'slider__slide-1';
-imageElList[1].className = 'slider__slide-2';
-imageElList[2].className = 'slider__slide-3';
-
-const containerEl = document.querySelector('.slider__container') as HTMLDivElement;
-
-imageElList.slice(0, 3).forEach(img => {
-  containerEl.append(img);
-});
-
-const nextBtnEl = document.querySelector('.slider__next') as HTMLButtonElement;
-const prevBtnEl = document.querySelector('.slider__prev') as HTMLButtonElement;
-
-nextBtnEl.addEventListener('click', () => {
-  prevBtnEl.disabled = true;
+const blockBtns = () => {
   nextBtnEl.disabled = true;
-  setTimeout(() => {
-    prevBtnEl.disabled = false;
-    nextBtnEl.disabled = false;
-  }, 1100);
+  prevBtnEl.disabled = true;
+};
 
-  // Добавили новый слайд
-  let imgToAppendIndex = centralImgIndex + 2;
-  if (imgToAppendIndex === imageElList.length) {
-    imgToAppendIndex = 0;
-  } else if (imgToAppendIndex > imageElList.length) {
-    imgToAppendIndex = 1;
-  }
-  imageElList[imgToAppendIndex].className = 'slider__slide-out-right';
-  containerEl.append(imageElList[imgToAppendIndex]);
+const activateBtns = () => {
+  nextBtnEl.disabled = false;
+  prevBtnEl.disabled = false;
+};
 
-  // Определили индекс левой картинки и запустили отложенное удаление
-  let leftImgIndex = centralImgIndex - 1;
-  if (leftImgIndex < 0) {
-    leftImgIndex = imageElList.length - 1;
-  }
-  setTimeout(() => {
-    imageElList[leftImgIndex].remove();
-  }, 1000);
-
-  // Определили индекс правой картинки
-  let rightImgIndex = centralImgIndex + 1;
-  if (rightImgIndex === imageElList.length) {
-    rightImgIndex = 0;
-  }
-
-  // Запустили отложенное смещение слайдов и изменили индекс центральной картинки
-  setTimeout(() => {
-    imageElList[imgToAppendIndex].className = 'slider__slide-3';
-    imageElList[leftImgIndex].className = 'slider__slide-out-left';
-    imageElList[centralImgIndex].className = 'slider__slide-1';
-    imageElList[rightImgIndex].className = 'slider__slide-2';
-    centralImgIndex = rightImgIndex;
-  }, 50);
+window.addEventListener('resize', () => {
+  wrapperCoords = wrapperEl.getBoundingClientRect();
+  wrapperLeftCoords = wrapperCoords.left;
+  wrapperWidth = wrapperCoords.width;
 });
+
+const imagesList = [...document.querySelectorAll('.slider__img-item')];
+
+const imageClickHandler = (e: Event) => {
+  const divEl = e.currentTarget as HTMLDivElement;
+  const { imgId } = divEl.dataset;
+
+  mainImagesBoxEl.style.transform = `translate3d(${-(Number(imgId) - 1) * 100}%, 0px, 0px)`;
+};
+
+imagesList.forEach(el => {
+  el.addEventListener('click', imageClickHandler);
+});
+
+const dragAction = (e: MouseEvent) => {
+  imagesList.forEach(el => {
+    el.removeEventListener('click', imageClickHandler);
+  });
+  const posX = e.pageX - wrapperLeftCoords;
+  offset = ((posInit - posX) / wrapperWidth) * 100;
+  const newTranslateXPos = translateXPos - offset;
+  imagesBoxEl.style.transform = `translate3d(${calcPosX(newTranslateXPos, translateStep)}%, 0px, 0px)`;
+};
+
+const swipeAction = (e: TouchEvent) => {
+  imagesList.forEach(el => {
+    el.removeEventListener('click', imageClickHandler);
+  });
+  const posX = e.touches[0].clientX - wrapperLeftCoords;
+  offset = ((posInit - posX) / wrapperWidth) * 100;
+  const newTranslateXPos = translateXPos - offset;
+  imagesBoxEl.style.transform = `translate3d(${calcPosX(newTranslateXPos, translateStep)}%, 0px, 0px)`;
+};
+
+const dragStart = (e: MouseEvent) => {
+  isDragging = true;
+  posInit = e.pageX - wrapperLeftCoords;
+  wrapperEl.addEventListener('mousemove', dragAction);
+  wrapperEl.addEventListener('touchmove', swipeAction);
+};
+
+const swipeStart = (e: TouchEvent) => {
+  isDragging = true;
+  posInit = e.touches[0].clientX - wrapperLeftCoords;
+  wrapperEl.addEventListener('mousemove', dragAction);
+  wrapperEl.addEventListener('touchmove', swipeAction);
+};
+
+const swipeEnd = () => {
+  blockBtns();
+  const prevCurrentImage = currentImage;
+  isDragging = false;
+  imagesBoxEl.style.transition = 'transform .5s';
+  wrapperEl.removeEventListener('mousemove', dragAction);
+  wrapperEl.removeEventListener('touchmove', swipeAction);
+
+  if (offset < -translateStep / 2) {
+    translateXPos += translateStep;
+    currentImage -= 1;
+    if (currentImage === 0) {
+      currentImage = imagesLength;
+    }
+  }
+
+  if (offset > translateStep / 2) {
+    translateXPos -= translateStep;
+    currentImage += 1;
+    if (currentImage === imagesLength + 1) {
+      currentImage = 1;
+    }
+  }
+
+  offset = 0;
+
+  imagesBoxEl.style.transform = `translate3d(${calcPosX(translateXPos, translateStep)}%, 0px, 0px)`;
+
+  setTimeout(() => {
+    imagesBoxEl.style.transition = '';
+    if (currentImage === imagesLength && prevCurrentImage === 1) {
+      translateXPos = initTranslateXPos - translateStep * (imagesLength - 1);
+      imagesBoxEl.style.transform = `translate3d(${calcPosX(translateXPos, translateStep)}%, 0px, 0px)`;
+    }
+
+    if (currentImage === 1 && prevCurrentImage === imagesLength) {
+      translateXPos = initTranslateXPos;
+      imagesBoxEl.style.transform = `translate3d(${calcPosX(translateXPos, translateStep)}%, 0px, 0px)`;
+    }
+    activateBtns();
+    imagesList.forEach(el => {
+      el.addEventListener('click', imageClickHandler);
+    });
+  }, 500);
+};
+
+const swipeLeave = () => {
+  if (isDragging) {
+    swipeEnd();
+  }
+};
+
+wrapperEl.addEventListener('mousedown', dragStart);
+wrapperEl.addEventListener('touchstart', swipeStart);
+
+wrapperEl.addEventListener('mouseup', swipeEnd);
+wrapperEl.addEventListener('touchend', swipeEnd);
+
+wrapperEl.addEventListener('mouseleave', swipeLeave);
 
 prevBtnEl.addEventListener('click', () => {
-  // Добавили и тут же сместили
-  prevBtnEl.disabled = true;
-  nextBtnEl.disabled = true;
-  setTimeout(() => {
-    prevBtnEl.disabled = false;
-    nextBtnEl.disabled = false;
-  }, 1000);
-
-  // Добавили новый слайд
-  let imgToAppendIndex = centralImgIndex - 2;
-  if (imgToAppendIndex === -2) {
-    imgToAppendIndex = imageElList.length - 2;
-  } else if (imgToAppendIndex === -1) {
-    imgToAppendIndex = imageElList.length - 1;
-  }
-  imageElList[imgToAppendIndex].className = 'slider__slide-out-left';
-  containerEl.append(imageElList[imgToAppendIndex]);
-
-  // Определили индекс правой картинки и запустили отложенное удаление
-  let rightImgIndex = centralImgIndex + 1;
-  if (rightImgIndex === imageElList.length) {
-    rightImgIndex = 0;
-  }
-  setTimeout(() => {
-    imageElList[rightImgIndex].remove();
-  }, 1000);
-
-  // Определили индекс левой картинки
-  let leftImgIndex = centralImgIndex - 1;
-  if (leftImgIndex < 0) {
-    leftImgIndex = imageElList.length - 1;
+  blockBtns();
+  const prevCurrentImage = currentImage;
+  imagesBoxEl.style.transition = 'transform .5s';
+  translateXPos += translateStep;
+  currentImage -= 1;
+  if (currentImage === 0) {
+    currentImage = imagesLength;
   }
 
-  // Запустили отложенное смещение слайдов и изменили индекс центральной картинки
+  imagesBoxEl.style.transform = `translate3d(${calcPosX(translateXPos, translateStep)}%, 0px, 0px)`;
+
   setTimeout(() => {
-    imageElList[imgToAppendIndex].className = 'slider__slide-1';
-    imageElList[rightImgIndex].className = 'slider__slide-out-right';
-    imageElList[centralImgIndex].className = 'slider__slide-3';
-    imageElList[leftImgIndex].className = 'slider__slide-2';
-    centralImgIndex = leftImgIndex;
-  }, 50);
+    imagesBoxEl.style.transition = '';
+    if (currentImage === imagesLength && prevCurrentImage === 1) {
+      translateXPos = initTranslateXPos - translateStep * (imagesLength - 1);
+      imagesBoxEl.style.transform = `translate3d(${calcPosX(translateXPos, translateStep)}%, 0px, 0px)`;
+    }
+    activateBtns();
+  }, 500);
+});
+
+nextBtnEl.addEventListener('click', () => {
+  blockBtns();
+  const prevCurrentImage = currentImage;
+  imagesBoxEl.style.transition = 'transform .5s';
+  translateXPos -= translateStep;
+  currentImage += 1;
+  if (currentImage === imagesLength + 1) {
+    currentImage = 1;
+  }
+
+  imagesBoxEl.style.transform = `translate3d(${calcPosX(translateXPos, translateStep)}%, 0px, 0px)`;
+
+  setTimeout(() => {
+    imagesBoxEl.style.transition = '';
+    if (currentImage === 1 && prevCurrentImage === imagesLength) {
+      translateXPos = initTranslateXPos;
+      imagesBoxEl.style.transform = `translate3d(${calcPosX(translateXPos, translateStep)}%, 0px, 0px)`;
+    }
+    activateBtns();
+  }, 500);
 });

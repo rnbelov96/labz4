@@ -1,0 +1,108 @@
+.format
+  min-height: 854px
+  padding: 61px 0 74px 0
+  @include bg
+  background-image: url("../img/bgs/steps-bg.jpg")
+  &__title
+    font-family: Merriweather
+    font-size: 44px
+    font-weight: 300
+    line-height: 0.77
+    text-align: center
+    color: #343131
+  &__subtitle
+    position: relative
+    z-index: 1
+    width: 32%
+    margin: 33px auto 0 auto
+  &__subtitle-text
+    font-size: 30px
+    line-height: 1.13
+    font-weight: normal
+    text-align: center
+    color: #333333
+    margin-bottom: 0
+    padding: 5px 19px
+  &__subtitle-bg
+    position: absolute
+    border-radius: 5px
+    background-color: #e9e9e9
+    width: 100%
+    height: 100%
+    top: 0
+    left: 0
+    z-index: -1
+    transform: skewX(-13deg)
+  &__table
+    margin-top: 30px
+    display: flex
+    width: 100%
+  &__table-column
+    width: calc((100%-17%)/4)
+    background-color: white
+    &:first-child
+      width: 17%
+      background-color: #e9e9e9
+      .format__table-cell
+        text-align: left
+        justify-content: start
+  &__table-cell
+    height: 70px
+    display: flex
+    align-items: center
+    justify-content: center
+    text-align: center
+    font-size: 22px
+    font-weight: 500
+    line-height: 30px
+    color: #333333
+    padding: 15px
+    &:last-child
+      display: block
+      height: 206px
+  &__table-cell_img
+    display: flex !important
+    align-items: flex-end
+    padding: 0
+    img
+      width: 100%
+  &__table-cell_grey
+    background-color: #626262
+    color: white
+  &__table-cell_dark-grey
+    background-color: #565252
+    color: white
+  &__text
+    font-size: 18px
+    font-weight: 500
+    line-height: 1.33
+    text-align: center
+    color: #333333
+  &__btn-box
+    position: relative
+    z-index: 1
+    width: 85%
+    margin: 0 auto
+  &__btn
+    width: 100%
+    height: 63px
+    border-radius: 15px
+    box-shadow: inset 0px 1px 21px 0 #ff7474
+    background-blend-mode: overlay
+    background-image: linear-gradient(to top, #000000, white), linear-gradient(to bottom, #ce211f, #ce211f)
+    background-color: #ce211f
+    font-size: 18px
+    font-weight: bold
+    line-height: 20px
+    text-align: center
+    color: white
+    border: none
+  &__btn-shadow
+    position: absolute
+    top: 5px
+    z-index: -1
+    background-color: #bb1311
+    width: 100%
+    height: 63px
+    border-radius: 15px
+    box-shadow: -1px 1px 18px 0px rgba(0, 0, 0, 0.2)
