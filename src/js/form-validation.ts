@@ -1,5 +1,6 @@
 import isEmail from 'validator/lib/isEmail';
 import isMobilePhone from 'validator/lib/isMobilePhone';
+import IMask from 'imask';
 
 const NESSESARY_FIELD_CAPTION = 'Обязательное поле';
 const WRONG_PHONE_CAPTION = 'Неверный номер';
@@ -16,6 +17,23 @@ formsList.forEach(form => {
   const phoneInputEl = form.querySelector('[data-type="phone"]') as HTMLInputElement;
   const emailInputEl = form.querySelector('[data-type="email"]') as HTMLInputElement;
   const cityInputEl = form.querySelector('[data-type="city"]') as HTMLInputElement | null;
+
+  let phoneMask: IMask.InputMask<{mask: string, lazy: false}>;
+  phoneInputEl.addEventListener('focus', () => {
+    if (!phoneMask || phoneMask.unmaskedValue === '') {
+      phoneMask = IMask(phoneInputEl, {
+        mask: '+7(000)000-00-00',
+        lazy: false,
+      });
+    }
+  });
+  phoneInputEl.addEventListener('blur', e => {
+    const inputEl = e.currentTarget as HTMLInputElement;
+    if (phoneMask.unmaskedValue === '') {
+      phoneMask.destroy();
+      inputEl.value = '';
+    }
+  });
 
   const onFocus = ((e: Event) => {
     const targerEl = e.currentTarget as HTMLInputElement;
@@ -60,7 +78,7 @@ formsList.forEach(form => {
       isOk = false;
     }
 
-    if (phoneInputEl.value !== '' && !isMobilePhone(phoneInputEl.value, 'ru-RU')) {
+    if (phoneInputEl.value !== '' && !isMobilePhone(`+7${phoneMask.unmaskedValue}`, 'ru-RU')) {
       phoneInputEl.classList.add('input-error');
       phoneErrorLabelEl.textContent = WRONG_PHONE_CAPTION;
       phoneErrorLabelEl.classList.remove('invisible');

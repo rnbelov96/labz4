@@ -42,6 +42,7 @@
   },
   "dependencies": {
     "core-js": "^3.8.2",
+    "imask": "^6.0.5",
     "node-sass": "^5.0.0",
     "regenerator-runtime": "^0.13.7",
     "validator": "^13.5.2"
