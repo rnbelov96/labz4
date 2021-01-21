@@ -1,8 +1,6 @@
 import calcPosX from './utils';
 
-export {};
-
-const imagesLength = 6;
+const imagesLength = 10;
 let currentImage = 1;
 const mode = 2;
 

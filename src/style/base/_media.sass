@@ -91,6 +91,8 @@
 @media (max-width: 991px)
   .descr
     background-image: url("../img/bgs/descr-without-man-bg.jpg")
+    &__owner-name
+      display: none
   .form
     &__file-caption
       display: none
@@ -200,7 +202,6 @@
     min-height: 810px
     &__title
       font-size: 34px
-    
 
 @media (max-width: 767px)
   .descr
@@ -354,7 +355,9 @@
       margin-bottom: 5px
     &__phone
       font-size: 20px
-
+  .modal
+    &__policy
+      width: 100%
 
 
 @media (max-width: 575px)
@@ -505,6 +508,18 @@
       font-size: 18px
     &__item-text
       font-size: 13px
+  .format
+    &__title
+      font-size: 28px
+      line-height: 28px
+    &__subtitle
+      width: 58%
+    &__subtitle-text
+      font-size: 17px
+    &__table
+      display: none
+      &_mini
+        display: flex
   .partner
     &__title
       font-size: 28px
@@ -521,3 +536,22 @@
       font-size: 10px
     &__phone-img
       width: 12px
+  .modal
+    &__policy
+      padding: 24px 12px
+  .form-modal
+    width: 300px
+    &__title
+      font-size: 17px
+    &__input
+      height: 50px
+    &__btn-box
+      width: 100%
+    &__btn
+      height: 50px
+      padding: 10px
+    &__btn-shadow
+      height: 50px
+    &__agree-text
+      font-size: 11px
+

@@ -3,7 +3,7 @@ import isMobilePhone from 'validator/lib/isMobilePhone';
 
 const NESSESARY_FIELD_CAPTION = 'Обязательное поле';
 const WRONG_PHONE_CAPTION = 'Неверный номер';
-const WRONG_EMAIL_CAPTION = 'Неверныйemail';
+const WRONG_EMAIL_CAPTION = 'Неверный email';
 
 const formsList = document.querySelectorAll('form');
 
@@ -12,11 +12,10 @@ formsList.forEach(form => {
   const phoneErrorLabelEl = form.querySelector('#phone-error') as HTMLDivElement;
   const emailErrorLabelEl = form.querySelector('#email-error') as HTMLDivElement;
   const cityErrorLabelEl = form.querySelector('#city-error') as HTMLDivElement | null;
-  // исправить получение по name
-  const nameInputEl = form.querySelector('[name="name"]') as HTMLInputElement | null;
-  const phoneInputEl = form.querySelector('[name="phone"]') as HTMLInputElement;
-  const emailInputEl = form.querySelector('[name="email"]') as HTMLInputElement;
-  const cityInputEl = form.querySelector('[name="city"]') as HTMLInputElement | null;
+  const nameInputEl = form.querySelector('[data-type="name"]') as HTMLInputElement | null;
+  const phoneInputEl = form.querySelector('[data-type="phone"]') as HTMLInputElement;
+  const emailInputEl = form.querySelector('[data-type="email"]') as HTMLInputElement;
+  const cityInputEl = form.querySelector('[data-type="city"]') as HTMLInputElement | null;
 
   const onFocus = ((e: Event) => {
     const targerEl = e.currentTarget as HTMLInputElement;
@@ -28,7 +27,7 @@ formsList.forEach(form => {
   emailInputEl.addEventListener('focus', onFocus);
   cityInputEl?.addEventListener('focus', onFocus);
 
-  form.addEventListener('submit', () => {
+  form.addEventListener('submit', e => {
     let isOk = true;
 
     nameErrorLabelEl?.classList.add('invisible');
@@ -80,6 +79,8 @@ formsList.forEach(form => {
       phoneErrorLabelEl.classList.add('invisible');
       emailErrorLabelEl.classList.add('invisible');
       cityErrorLabelEl?.classList.add('invisible');
+    } else {
+      e.preventDefault();
     }
   });
 });

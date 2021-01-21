@@ -1,8 +1,11 @@
-.form
-  width: 100%
+.form-modal
+  position: relative
+  display: inline-block
+  vertical-align: middle
+  width: 500px
   min-height: 210px
-  margin-top: 30px 
-  padding: 23px 0 28px 77px
+  margin: 30px auto
+  padding: 25px
   border-radius: 15px
   box-shadow: -1px 1px 18px 0px rgba(0, 0, 0, 0.2)
   background-color: #ededed
@@ -15,6 +18,8 @@
       color: #ce211f
   &__input-box
     position: relative
+    width: 100%
+    margin-bottom: 32px
   &__error-text
     position: absolute
     color: #ce211f
@@ -22,13 +27,13 @@
     transform: translate3d(0, 115%, 0)
   &__input-img
     position: absolute
-    left: 20px
     top: 50%
     transform: translate3d(0, -50%, 0)
+    left: 15px
   &__input
-    width: 227px
+    width: 100%
     height: 60px
-    padding: 20px 21px 20px 54px
+    padding: 15px 10px 15px 42px
     box-shadow: inset 0px 1px 13px 0 rgba(0, 0, 0, 0.1)
     border: solid 2px white
     background-color: white
@@ -41,88 +46,45 @@
     &:-moz-placeholder
       color: #999
   &__inputs
+    width: 100%
     display: flex
+    flex-direction: column
+    align-items: center
     margin-top: 17px
-    height: 60px
-    box-shadow: 0px 0px 19px 1px rgba(0, 0, 0, 0.1)
+    height: inherit
+    box-shadow: none
     margin-right: 90px
   &__btn-box
     position: relative
     z-index: 1
-    top: -5px
-    left: -10px
+    width: 75%
   &__btn
-    width: 311px
+    width: 100%
+    line-height: inherit
     height: 63px
     border-radius: 15px
-    padding-left: 28px
+    padding: 20px 10px
     box-shadow: inset 0px 1px 21px 0 #ff7474
     background-blend-mode: overlay
     background-image: linear-gradient(to top, #000000, white), linear-gradient(to bottom, #ce211f, #ce211f)
     background-color: #ce211f
     font-size: 18px
     font-weight: bold
-    line-height: 2.67
-    text-align: left
+    text-align: center
     color: white
     border: none
-    &:active
-      background-color: #bb1311
-      box-shadow: none
   &__btn-shadow
     position: absolute
     top: 5px
     z-index: -1
     background-color: #bb1311
-    width: 311px
+    width: 100%
     height: 63px
     border-radius: 15px
-  &__btn-file
-    position: absolute
-    right: -17px
-    top: 5px
   &__agree-text
     font-size: 14px
     text-align: left
     color: #333333
-    width: 570px
     margin-bottom: 0
   &__agree
-    margin-top: 30px
-    display: flex
-    justify-content: space-between
-    padding-right: 90px
-  &__file-caption
-    font-size: 14px
-    text-align: left
-    color: #333333
-    margin-bottom: 0
-  &_directions
-    margin-top: 57px
-  &_market
-    margin-top: 38px
-  &_income
-    margin-top: 45px
-  &_plan
-    margin-top: 50px
-  &__btn_partner
-    padding: 0px
-    font-size: 18px
-    font-weight: bold
-    line-height: 2.67
-    letter-spacing: 0.45px
-    text-align: center
-    color: white
-    text-transform: uppercase
-  &__agree_partner
-    display: block
-  &__star-text
-    font-size: 16px
-    font-weight: 500
-    line-height: 1.38
-    text-align: left
-    color: #333333
-  &__agree-text_partner
-    width: 90%
-  &_partner
-    margin-top: 0
+    margin-top: 25px

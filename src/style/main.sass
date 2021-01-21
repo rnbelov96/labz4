@@ -16,9 +16,11 @@
 @import './components/partner'
 @import './components/footer'
 @import './components/slider'
+@import './components/modal'
+@import './components/form-modal'
 
 body
-  font-family: HelveticaNeueCyr
+  font-family: HelveticaNeueCyr, sans-serif
 
 .container
   max-width: 1144px
@@ -31,6 +33,7 @@ body
 
 .input-error
   border: solid #ce211f 2px
+  color: #ce211f
   &::-webkit-input-placeholder
       color: #ce211f
   &::-moz-placeholder
@@ -39,5 +42,13 @@ body
     color: #ce211f
   &:-moz-placeholder
     color: #ce211f
+
+.policy
+  text-decoration: underline
+  cursor: pointer
+  &:hover
+    color: blue
+  &:active
+    color: inherit
 
 @import './base/media'
