@@ -1,3 +1,4 @@
+/* eslint-disable no-param-reassign */
 import isEmail from 'validator/lib/isEmail';
 import isMobilePhone from 'validator/lib/isMobilePhone';
 import IMask from 'imask';
@@ -45,7 +46,7 @@ formsList.forEach(form => {
   emailInputEl.addEventListener('focus', onFocus);
   cityInputEl?.addEventListener('focus', onFocus);
 
-  form.addEventListener('submit', e => {
+  form.addEventListener('submit', async e => {
     let isOk = true;
 
     nameErrorLabelEl?.classList.add('invisible');
@@ -93,10 +94,17 @@ formsList.forEach(form => {
     }
 
     if (isOk) {
+      form.action = 'sendMail.php';
+      form.method = 'POST';
       nameErrorLabelEl?.classList.add('invisible');
       phoneErrorLabelEl.classList.add('invisible');
       emailErrorLabelEl.classList.add('invisible');
       cityErrorLabelEl?.classList.add('invisible');
+      if (nameInputEl) {
+        localStorage.setItem('userName', nameInputEl.value);
+      } else {
+        localStorage.setItem('userName', '');
+      }
     } else {
       e.preventDefault();
     }
