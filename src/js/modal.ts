@@ -43,9 +43,16 @@ formatBtnElList.forEach(btn => {
   });
 });
 
-const policyElList = document.querySelectorAll('.policy');
-policyElList.forEach(btn => {
-  btn.addEventListener('click', () => {
+const modalCallElList = document.querySelectorAll('.modal-form-call');
+modalCallElList.forEach(el => {
+  el.addEventListener('click', () => {
+    openModal(formModalEl as HTMLDivElement);
+  });
+});
+
+const policyCallElList = document.querySelectorAll('.policy-call');
+policyCallElList.forEach(el => {
+  el.addEventListener('click', () => {
     openModal(policyModalEl as HTMLDivElement);
   });
 });
