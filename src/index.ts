@@ -4,3 +4,4 @@ import './style/main.sass';
 import './js/slider';
 import './js/form-validation';
 import './js/modal';
+import './js/thanks';
