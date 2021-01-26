@@ -1,8 +1,9 @@
 .slider
-  padding: 66px 0
+  padding: 50px 0 66px 0
   @include bg
   background-image: url("../img/bgs/gallery-bg.jpg")
   min-height: 790px
+  overflow: hidden
   &__title
     font-family: Merriweather
     font-size: 44px
@@ -12,7 +13,7 @@
     color: white
   &__content
     width: 65%
-    margin: 36px 0 0 auto
+    margin: 70px 0 0 auto
   &__main-img-item
     width: 100%
     img
@@ -68,3 +69,8 @@
     border-bottom-left-radius: 5px
     right: 0
     top: 50%
+  &__owner-img
+    position: absolute
+    z-index: -1
+    bottom: -126px
+    left: -316px

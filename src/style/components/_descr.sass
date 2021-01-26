@@ -3,6 +3,7 @@
   @include bg
   background-image: url("../img/bgs/descr-bg.jpg")
   padding: 12px 0px 53px 0px
+  overflow-x: hidden
   &__header
     margin-top: 12px
     display: flex
@@ -64,7 +65,7 @@
     text-align: left
   &__owner-name
     position: absolute
-    right: 80px
+    right: 115px
     bottom: 0
     font-size: 16px
     font-weight: 500
@@ -74,4 +75,14 @@
     letter-spacing: normal
     text-align: left
     color: white
-  
+  &__man-and-car-img
+    position: absolute
+    z-index: -1
+    top: 68px
+    right: -730px
+  &__car-img
+    position: absolute
+    z-index: -1
+    right: -520px
+    top: 83px
+    display: none

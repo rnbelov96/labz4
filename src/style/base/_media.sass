@@ -2,14 +2,7 @@
   .slider
     padding-top: 50px
     &__content
-      margin-top: 70px
-  
-  
-@media (max-width: 1650px)
-  .market
-    &__notebook
-      right: -12%
-      top: 20%
+      margin-top: 70px  
   
 @media (max-width: 1200px) 
   .container
@@ -17,6 +10,8 @@
   .descr
     &__title
       font-size: 42px
+    &__man-and-car-img
+      right: -830px
   .form
     padding-left: 25px
     padding-right: 25px
@@ -78,6 +73,8 @@
   .slider
     min-height: 750px
     padding-bottom: 0px
+    &__owner-img
+      bottom: -208px
   .help
     min-height: 860px
     &__item
@@ -99,8 +96,9 @@
 
 @media (max-width: 991px)
   .descr
-    background-image: url("../img/bgs/descr-without-man-bg.jpg")
-    &__owner-name
+    &__car-img
+      display: block
+    &__man-and-car-img, &__owner-name
       display: none
   .form
     &__file-caption
@@ -187,6 +185,9 @@
       line-height: 45px
     &__content
       width: 70%
+    &__owner-img
+      bottom: -266px
+      left: -355px
   .plan
     padding: 50px 0
     &__step-text
@@ -223,6 +224,9 @@
     &__subtitle
       font-size: 25px
   .form
+    background-image: -webkit-linear-gradient(left, #EDEDED, #FFFFFF)
+    background-image: -moz-linear-gradient(left, #EDEDED, #FFFFFF) 
+    background-image: linear-gradient(to right, #EDEDED, #FFFFFF)
     &__inputs
       flex-direction: column
       align-items: center
@@ -309,9 +313,10 @@
         margin-bottom: 0
   .slider
     min-height: 650px
-    background-image: url("../img/bgs/gallery-without-man-bg.jpg")
     &__content
       width: 100%
+    &__owner-img
+      display: none
   .plan
     &__title
       font-size: 36px
@@ -395,6 +400,8 @@
       font-size: 16px
     &__phone
       font-size: 22px
+    &__car-img
+      display: none
   .form
     &__title
       font-size: 16px
@@ -420,6 +427,8 @@
         margin-bottom: 0
     &__text
       font-size: 16px
+    &__car-img
+      display: none
   .market
     padding: 35px 0
     &__title
