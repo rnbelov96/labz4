@@ -209,33 +209,36 @@ document.addEventListener('DOMContentLoaded', () => {
 
       const data = JSON.stringify(document.formData);
 
-      const xhr = new XMLHttpRequest();
-
-      xhr.addEventListener('readystatechange', () => {
-        if (xhr.readyState === 4) {
-          console.log(xhr.responseText);
-          if (
-            document.f5leads.expect_second_form === '1'
-            && form.classList.contains('secondform')
-          ) {
-            console.log('second form submitted');
-            if (document.f5leads.onSubmitSecondForm !== undefined) document.f5leads.onSubmitSecondForm(form);
-          } else {
-            console.log('first form submitted');
-            localStorage.lastFirstFormData = JSON.stringify(document.formData);
-            // if (document.f5leads.onSubmitFirstForm !== undefined) document.f5leads.onSubmitFirstForm(form);
-          }
-        }
-      });
-
-      xhr.open(
-        'POST',
+      const response = await fetch(
         'https://tp3g2f5vh2.execute-api.eu-central-1.amazonaws.com/dev/add_lead',
+        {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'Cache-Control': 'no-cache',
+          },
+          body: data,
+        },
       );
-      xhr.setRequestHeader('Content-Type', 'application/json');
-      xhr.setRequestHeader('Cache-Control', 'no-cache');
 
-      xhr.send(data);
+      if (!response.ok) {
+        window.location = 'error.html';
+        return;
+      }
+
+      console.log(await response.text());
+
+      if (
+        document.f5leads.expect_second_form === '1'
+        && form.classList.contains('secondform')
+      ) {
+        console.log('second form submitted');
+        if (document.f5leads.onSubmitSecondForm !== undefined) document.f5leads.onSubmitSecondForm(form);
+      } else {
+        console.log('first form submitted');
+        localStorage.lastFirstFormData = JSON.stringify(document.formData);
+        // if (document.f5leads.onSubmitFirstForm !== undefined) document.f5leads.onSubmitFirstForm(form);
+      }
     });
   });
 });
