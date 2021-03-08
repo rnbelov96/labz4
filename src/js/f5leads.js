@@ -1,16 +1,10 @@
 /* eslint-disable no-plusplus */
-import isEmail from 'validator/lib/isEmail';
-import isMobilePhone from 'validator/lib/isMobilePhone';
-import IMask from 'imask';
-
-const NESSESARY_FIELD_CAPTION = 'Обязательное поле';
-const WRONG_PHONE_CAPTION = 'Неверный номер';
-const WRONG_EMAIL_CAPTION = 'Неверный email';
+import validateForm from './validate-form';
 
 function objectifyForm(formArray) {
   const returnArray = {};
   for (let i = 0; i < formArray.length; i++) {
-    returnArray[formArray[i].name] = formArray[i].value;
+    [, returnArray[formArray[i][0]]] = formArray[i];
   }
   return returnArray;
 }
@@ -95,107 +89,13 @@ document.addEventListener('DOMContentLoaded', () => {
   const formsList = document.querySelectorAll('form');
 
   formsList.forEach(form => {
-    const nameErrorLabelEl = form.querySelector('#name-error');
-    const phoneErrorLabelEl = form.querySelector('#phone-error');
-    const emailErrorLabelEl = form.querySelector('#email-error');
-    const cityErrorLabelEl = form.querySelector('#city-error');
-    const nameInputEl = form.querySelector('[data-type="name"]');
-    const phoneInputEl = form.querySelector('[data-type="phone"]');
-    const emailInputEl = form.querySelector('[data-type="email"]');
-    const cityInputEl = form.querySelector('[data-type="city"]');
-
-    let phoneMask;
-    phoneInputEl.addEventListener('focus', () => {
-      if (!phoneMask || phoneMask.unmaskedValue === '') {
-        phoneMask = IMask(phoneInputEl, {
-          mask: '+7(000)000-00-00',
-          lazy: false,
-        });
-      }
-    });
-    phoneInputEl.addEventListener('blur', e => {
-      const inputEl = e.currentTarget;
-      if (phoneMask.unmaskedValue === '') {
-        phoneMask.destroy();
-        inputEl.value = '';
-      }
-    });
-
-    const onFocus = e => {
-      const targerEl = e.currentTarget;
-      targerEl.classList.remove('input-error');
-    };
-
-    nameInputEl?.addEventListener('focus', onFocus);
-    phoneInputEl.addEventListener('focus', onFocus);
-    emailInputEl.addEventListener('focus', onFocus);
-    cityInputEl?.addEventListener('focus', onFocus);
-
     form.addEventListener('submit', async e => {
       e.preventDefault();
 
-      let isOk = true;
-
-      nameErrorLabelEl?.classList.add('invisible');
-      phoneErrorLabelEl.classList.add('invisible');
-      emailErrorLabelEl.classList.add('invisible');
-      cityErrorLabelEl?.classList.add('invisible');
-
-      if (nameInputEl && nameErrorLabelEl && nameInputEl.value === '') {
-        nameInputEl.classList.add('input-error');
-        nameErrorLabelEl.classList.remove('invisible');
-        nameErrorLabelEl.textContent = NESSESARY_FIELD_CAPTION;
-        isOk = false;
-      }
-      if (phoneInputEl.value === '') {
-        phoneInputEl.classList.add('input-error');
-        phoneErrorLabelEl.classList.remove('invisible');
-        phoneErrorLabelEl.textContent = NESSESARY_FIELD_CAPTION;
-        isOk = false;
-      }
-      if (emailInputEl.value === '') {
-        emailInputEl.classList.add('input-error');
-        emailErrorLabelEl.classList.remove('invisible');
-        emailErrorLabelEl.textContent = NESSESARY_FIELD_CAPTION;
-        isOk = false;
-      }
-      if (cityInputEl && cityErrorLabelEl && cityInputEl.value === '') {
-        cityInputEl.classList.add('input-error');
-        cityErrorLabelEl.classList.remove('invisible');
-        cityErrorLabelEl.textContent = NESSESARY_FIELD_CAPTION;
-        isOk = false;
-      }
-
-      if (
-        phoneInputEl.value !== ''
-        && !isMobilePhone(`+7${phoneMask.unmaskedValue}`, 'ru-RU')
-      ) {
-        phoneInputEl.classList.add('input-error');
-        phoneErrorLabelEl.textContent = WRONG_PHONE_CAPTION;
-        phoneErrorLabelEl.classList.remove('invisible');
-        isOk = false;
-      }
-
-      if (emailInputEl.value !== '' && !isEmail(emailInputEl.value)) {
-        emailInputEl.classList.add('input-error');
-        emailErrorLabelEl.textContent = WRONG_EMAIL_CAPTION;
-        emailErrorLabelEl.classList.remove('invisible');
-        isOk = false;
-      }
-
-      if (isOk) {
-        nameErrorLabelEl?.classList.add('invisible');
-        phoneErrorLabelEl.classList.add('invisible');
-        emailErrorLabelEl.classList.add('invisible');
-        cityErrorLabelEl?.classList.add('invisible');
-        if (nameInputEl) {
-          localStorage.setItem('userName', nameInputEl.value);
-        } else {
-          localStorage.setItem('userName', '');
-        }
-      } else {
+      if (!validateForm(form)) {
         return;
       }
+
       document.formData.roistat = getCookie('roistat_visit') || '';
 
       document.formData = {
@@ -237,7 +137,7 @@ document.addEventListener('DOMContentLoaded', () => {
       } else {
         console.log('first form submitted');
         localStorage.lastFirstFormData = JSON.stringify(document.formData);
-        // if (document.f5leads.onSubmitFirstForm !== undefined) document.f5leads.onSubmitFirstForm(form);
+        if (document.f5leads.onSubmitFirstForm !== undefined) document.f5leads.onSubmitFirstForm(form);
       }
     });
   });

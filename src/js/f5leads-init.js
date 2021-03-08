@@ -7,5 +7,3 @@ document.f5leads.counterId = '';
 document.f5leads.onSubmitFirstForm = () => {
   window.location = 'thanks.html';
 };
-
-// console.log(JSON.parse(localStorage.lastFirstFormData));
