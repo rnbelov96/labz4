@@ -75,11 +75,10 @@ document.addEventListener('DOMContentLoaded', () => {
   document.formData.utm_placement = localStorage.utm_placement || qs.utm_placement || '';
   localStorage.utm_placement = document.formData.utm_placement;
 
-  // ymaps.ready(() => {
-  //   document.formData.city = ymaps.geolocation.city || '';
-  //   console.log(document.formData);
-  // });
-  document.formData.city = 'Kazan';
+  ymaps.ready(() => {
+    document.formData.city = ymaps.geolocation.city || '';
+    console.log(document.formData);
+  });
 
   const x = new Date();
   document.formData.timezone = (-1 * x.getTimezoneOffset()) / 60;
@@ -103,9 +102,9 @@ document.addEventListener('DOMContentLoaded', () => {
         ...objectifyForm([...new FormData(form).entries()]),
       };
 
-      console.log(document.formData);
-
       if (document.formData.name === undefined) document.formData.name = window.location.hostname;
+
+      console.log(document.formData);
 
       const data = JSON.stringify(document.formData);
 
