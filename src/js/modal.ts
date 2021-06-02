@@ -56,3 +56,9 @@ policyCallElList.forEach(el => {
     openModal(policyModalEl as HTMLDivElement);
   });
 });
+
+const presentBtnEl = document.querySelector('.js-present-btn');
+const presentFormEl = document.querySelector('.js-present-form');
+presentBtnEl?.addEventListener('click', () => {
+  presentFormEl?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+});
