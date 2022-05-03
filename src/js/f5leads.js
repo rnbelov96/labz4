@@ -109,7 +109,7 @@ document.addEventListener('DOMContentLoaded', () => {
       const data = JSON.stringify(document.formData);
 
       const response = await fetch(
-        'https://tp3g2f5vh2.execute-api.eu-central-1.amazonaws.com/dev/add_lead',
+        'https://f5leads.franch5.ru/add_lead',
         {
           method: 'POST',
           headers: {
