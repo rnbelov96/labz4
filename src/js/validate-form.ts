@@ -50,7 +50,7 @@ export default (form: HTMLFormElement) => {
 
   if (
     phoneInputEl.value !== ''
-    && !isMobilePhone(`${phoneInputEl.value.replace(/\(|\)|-|_/g, '')}`, 'ru-RU')
+    && !isMobilePhone(`${phoneInputEl.value.replace(/\(|\)|-|_/g, '')}`)
   ) {
     phoneInputEl.classList.add('input-error');
     phoneErrorLabelEl.textContent = WRONG_PHONE_CAPTION;
